@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateBarangsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('barangs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('category_id');
             $table->string('name');
-            $table->string('username')->unique();
-            $table->string('status')->default('Aktif')->comment('Aktif, Tidak Aktif');
-            $table->string('role')->comment('Superadmin, Sales, Gudang, Teknisi');
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('tipe');
+            $table->string('serial_number')->nullable();
+            $table->string('barcode')->nullable();
+            $table->text('keterangan')->nullable();
+            $table->string('status')->comment('Ready, Rusak, Disewakan');
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('barangs');
     }
 }
